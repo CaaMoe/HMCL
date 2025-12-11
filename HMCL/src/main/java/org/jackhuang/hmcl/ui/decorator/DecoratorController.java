@@ -56,6 +56,8 @@ import org.jackhuang.hmcl.ui.construct.DialogAware;
 import org.jackhuang.hmcl.ui.construct.DialogCloseEvent;
 import org.jackhuang.hmcl.ui.construct.Navigator;
 import org.jackhuang.hmcl.ui.construct.JFXDialogPane;
+import org.jackhuang.hmcl.ui.versions.server.AddServerPane;
+import org.jackhuang.hmcl.ui.versions.server.ServerDnD;
 import org.jackhuang.hmcl.ui.wizard.Refreshable;
 import org.jackhuang.hmcl.ui.wizard.WizardProvider;
 import org.jackhuang.hmcl.util.Lang;
@@ -121,6 +123,7 @@ public class DecoratorController {
         decorator.onRefreshNavButtonActionProperty().set(e -> refresh());
 
         setupAuthlibInjectorDnD();
+        setupServerDnD();
 
         // Setup background
         decorator.setContentBackground(getBackground());
@@ -548,5 +551,13 @@ public class DecoratorController {
         decorator.addEventFilter(DragEvent.DRAG_OVER, AuthlibInjectorDnD.dragOverHandler());
         decorator.addEventFilter(DragEvent.DRAG_DROPPED, AuthlibInjectorDnD.dragDroppedHandler(
                 url -> Controllers.dialog(new AddAuthlibInjectorServerPane(url))));
+    }
+
+    // ==== Server DnD ====
+
+    private void setupServerDnD() {
+        decorator.addEventFilter(DragEvent.DRAG_OVER, ServerDnD.dragOverHandler());
+        decorator.addEventFilter(DragEvent.DRAG_DROPPED, ServerDnD.dragDroppedHandler(
+                serverData -> Controllers.dialog(new AddServerPane(serverData))));
     }
 }

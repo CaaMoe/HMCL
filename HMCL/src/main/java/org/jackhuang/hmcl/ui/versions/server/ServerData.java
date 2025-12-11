@@ -94,6 +94,10 @@ public final class ServerData {
         return new ServerData(false, false, null, ip, name);
     }
 
+    public static ServerData createServerData(String name, String ip, String icon) {
+        return new ServerData(false, false, icon, ip, name);
+    }
+
     public void writeToCompoundTag(CompoundTag tag) {
         tag.put(new ByteTag("acceptTextures", (byte) (acceptTextures ? 1 : 0)));
         tag.put(new ByteTag("hidden", (byte) (hidden ? 1 : 0)));
